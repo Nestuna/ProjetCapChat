@@ -1,0 +1,26 @@
+{
+  "name": "projetcapchat",
+  "version": "1.0.0",
+  "description": "CapChat Project for University",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nestuna/ProjetCapChat.git"
+  },
+  "author": "Nicolas Antunes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Nestuna/ProjetCapChat/issues"
+  },
+  "homepage": "https://github.com/Nestuna/ProjetCapChat#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7"
+  },
+  "type": "module"
+}
