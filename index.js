@@ -1,8 +1,15 @@
 import express from 'express'
-import routes from './routes/routes.js'
-const app = express()
+import path, { dirname } from 'path'
+import { fileURLToPath } from 'url'
 
-app.use(express.static('public'))
-app.use(routes)
+const app = express()
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+app.use(express.static(path.resolve(__dirname, 'public')))
+app.use(express.json())
+import homeRoute from './routes/home.js'
+
+app.use('/', homeRoute)
 
 app.listen('3000', () => console.log('Server lauched on port 3000'))
