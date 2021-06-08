@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles/style.css" media="all"/>
+
+    <script type="module">
+        import Captcha from './JS/script.js'
+        const attempts = <%= attempts %>
+        console.log(attempts)
+        window.captchatScript = new Captcha(attempts);
+
+    </script>
+
+    <title>Capchat</title>
+
+</head>
+<body>
+
+    <div id="images">
+        <h2> Trouvez l'image singulière</h2>
+        <p>
+            <b>Indice</b> : <%= clue %>
+        </p>
+        <% if (singularImagePath && clue)  { %>
+            <img src="<%= singularImagePath %>" alt="" class="capchat-img" id="singular_img">
+        <% }
+            if (neutralImagesPaths) {
+                for (const img of neutralImagesPaths) {
+        %>
+                    <img src="<%= img %>" class="capchat-img">
+        <%
+                }
+            }
+        %>
+        <div id="countdown">
+            <p> Délai maximum de réponse :</p>
+            <p id="countdown_text">
+            </p>
+        </div>
+    </div>
+    <div id="text">
+
+    </div>
+</body>
+
+</html>
