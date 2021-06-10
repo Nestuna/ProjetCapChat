@@ -1,12 +1,21 @@
-import express from "express"
-import Model from '../model/Model.js'
-import Admin from '../controllers/Admin.js'
+const express = require("express")
+const db = require('../model/Model')
+const admin = require('../controllers/AdminController')
 
 const router = express.Router()
-const admin = new Admin()
 
 router.get('/', (req, res) => {
-    admin.register('test2', 'blabla')
+    res.render('admin')
+})
+router.post('/register', (req, res) => {
+    const { username, password } = req.body
+    admin.register(username, password)
+        .then( userId => {
+            console.log(`Added user ${username} with userId: ${userId}`)
+            res.status(200)
+            admin.generateToken(userId)
+        })
+        .catch(error => console.log(`Fail to add user ${username}: ${error}`))
 })
 
-export default router
+module.exports = router

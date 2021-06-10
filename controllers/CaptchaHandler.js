@@ -1,13 +1,7 @@
-import { log } from 'console'
-import path, { dirname } from 'path'
-import { fileURLToPath } from 'url'
-import fs from 'fs'
-import { readdir } from 'fs/promises';
+const path = require('path')
+const fs = require('fs')
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-
-export default class CaptchaHandler {
+class CaptchaHandler {
     constructor() {
         this.clues = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'indices.json')))
         this.singularCats = Object.keys(this.clues)
@@ -71,3 +65,5 @@ export default class CaptchaHandler {
         return file_path
     }
 }
+
+module.exports = new CaptchaHandler()

@@ -1,13 +1,8 @@
-import express from "express"
-import path, { dirname } from 'path'
-import { fileURLToPath } from 'url'
-import CaptchaHandler from "../controllers/CaptchaHandler.js"
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+const express = require("express")
+const path = require('path')
+const captcha = require("../controllers/CaptchaHandler")
 
 const router = express.Router()
-const captcha = new CaptchaHandler()
 
 router.get('/', (req, res) => {
     let attempts = 0
@@ -42,4 +37,4 @@ router.get('/fail', (req, res) => {
 })
 
 
-export default router
+module.exports = router

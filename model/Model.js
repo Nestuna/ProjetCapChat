@@ -1,14 +1,10 @@
-import mysql from 'mysql'
-import bcrypt from 'bcrypt'
-import fs from 'fs'
-import path, { dirname } from 'path'
-import { fileURLToPath } from 'url'
+const mysql = require('mysql')
+const bcrypt = require('bcrypt')
+const fs = require('fs')
+const path = require('path')
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
 const config = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'config.json')))
-
-export default class Model {
+class Model {
     constructor(options) {
         this.db = this._connect(config)
     }
@@ -24,17 +20,18 @@ export default class Model {
     }
 
     addUser = async (username, password) => {
-        const hash_password = bcrypt.hashSync(password, 10)
-        const sql = 'INSERT INTO user (username, password) VALUES(?,?)'
-        this.db.query(sql, [username, hash_password], (error, result) => {
-            if (error) throw error
-            else {
-                console.log(`Added user ${username} with id: ` + result.insertId)
-                return true
-            }
+        return new Promise((resolve, reject) => {
+            const hash_password = bcrypt.hashSync(password, 10)
+            const sql = 'INSERT INTO user (username, password) VALUES(?,?)'
+            this.db.query(sql, [username, hash_password],
+                (error, rows) => {
+                    if (error || !rows) reject(error)
+                    else {
+                        resolve(rows)
+                }
+            })
         })
 
     }
-
-
 }
+module.exports = new Model()
