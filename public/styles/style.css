@@ -1,12 +1,17 @@
-#images {
+#container {
     padding: 10px;
     max-width: 320px;
     background-color: rgb(76, 93, 137);
     border-radius: 0.5em;
-    color: #EEE;
     -webkit-box-shadow:  1px 0px 50px 1px rgba(0,0,0,0.5);
     box-shadow:  1px 0px 15px 1px rgba(0,0,0, 0.5);
     text-align: center;
+}
+#container p, a , h1, h2, h3{
+    color: #EEE;
+}
+#container a:hover{
+    color:#CCC;
 }
 .capchat-img {
     height: 100px;

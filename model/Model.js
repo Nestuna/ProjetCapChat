@@ -27,11 +27,32 @@ class Model {
                 (error, rows) => {
                     if (error || !rows) reject(error)
                     else {
-                        resolve(rows)
+                        resolve(rows.insertId)
                 }
             })
         })
 
+    }
+
+    getUser = async (userObj) => {
+        return new Promise((resolve, reject) => {
+            let sql
+            if (userObj.userId) {
+                sql = `SELECT username FROM user WHERE id = ${userObj.userId}`
+                console.log(sql);
+            } else if (userObj.username) {
+                sql = `SELECT username FROM user WHERE username = ${userObj.username}`
+            } else {
+                console.error('Failed to get user : no argument provided');
+                return false
+            }
+
+            this.db.query(sql, (error, rows) => {
+                if (error) reject (error)
+                else if (!rows) resolve(false)
+                else resolve(rows)
+            })
+        })
     }
 }
 module.exports = new Model()

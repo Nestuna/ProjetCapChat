@@ -10,41 +10,42 @@
     <script type="module">
         import Captcha from './JS/captcha.js'
         const attempts = <%= attempts %>
-        console.log(attempts)
         window.captchatScript = new Captcha(attempts);
-
     </script>
-
-
 
 </head>
 <body>
 
-    <div id="images">
-        <h2> Trouvez l'image singulière</h2>
-        <p>
-            <b>Indice</b> : <%= clue %>
-        </p>
-        <% if (singularImagePath && clue)  { %>
-            <img src="<%= singularImagePath %>" alt="" class="capchat-img" id="singular_img">
-        <% }
-            if (neutralImagesPaths) {
-                for (const img of neutralImagesPaths) {
-        %>
-                    <img src="<%= img %>" class="capchat-img">
-        <%
+    <div id="container">
+        <div id="images">
+            <h2> Trouvez l'image singulière</h2>
+            <p>
+                <b>Indice</b> : <%= clue %>
+            </p>
+            <% if (singularImagePath && clue)  { %>
+                <img src="<%= singularImagePath %>" alt="" class="capchat-img" id="singular_img">
+            <% }
+                if (neutralImagesPaths) {
+                    for (const img of neutralImagesPaths) {
+            %>
+                        <img src="<%= img %>" class="capchat-img">
+            <%
+                    }
                 }
-            }
-        %>
-        <div id="countdown">
-            <p> Délai maximum de réponse :</p>
-            <p id="countdown_text">
+            %>
+            <div id="countdown">
+                <p> Délai maximum de réponse :</p>
+                <p id="countdown_text">
+                </p>
+            </div>
+        </div>
+        <div id="text">
+            <p>
+                <a id="admin_link" href="admin/">Admin</a>
             </p>
         </div>
     </div>
-    <div id="text">
 
-    </div>
 </body>
 
 </html>
