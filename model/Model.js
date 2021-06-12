@@ -2,6 +2,7 @@ const mysql = require('mysql')
 const bcrypt = require('bcrypt')
 const fs = require('fs')
 const path = require('path')
+const { log } = require('console')
 
 const config = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'config.json')))
 class Model {
@@ -34,23 +35,34 @@ class Model {
 
     }
 
-    getUser = async (userObj) => {
+    getUser = async (username, password) => {
         return new Promise((resolve, reject) => {
-            let sql
-            if (userObj.userId) {
-                sql = `SELECT username FROM user WHERE id = ${userObj.userId}`
-                console.log(sql);
-            } else if (userObj.username) {
-                sql = `SELECT username FROM user WHERE username = ${userObj.username}`
-            } else {
-                console.error('Failed to get user : no argument provided');
-                return false
-            }
-
+            const sql = `SELECT id,username, password FROM user WHERE username = "${username}"`
+            console.log(sql);
             this.db.query(sql, (error, rows) => {
-                if (error) reject (error)
-                else if (!rows) resolve(false)
-                else resolve(rows)
+                if (error || !rows) reject (error)
+                else if (rows.length === 0) resolve(false)
+                else {
+                    const hash_password = rows[0].password
+                    if (bcrypt.compareSync(password, rows[0].password)) {
+                        resolve(rows[0])
+                    } else {
+                        resolve(false)
+                    }
+                }
+            })
+        })
+    }
+
+    addTheme = async (themeName, userId) => {
+        return new Promise((resolve, reject) => {
+            const sql = `INSERT INTO theme (name, user_id) VALUES("${themeName}", ${userId})`
+            console.log(sql)
+            this.db.query(sql, (error, rows) => {
+                if (error || !rows) reject(error)
+                else {
+                    resolve(rows.insertId)
+                }
             })
         })
     }

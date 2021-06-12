@@ -7,12 +7,19 @@
     box-shadow:  1px 0px 15px 1px rgba(0,0,0, 0.5);
     text-align: center;
 }
-#container p, a , h1, h2, h3{
+#container p, a , h1, h2, h3, label{
     color: #EEE;
 }
 #container a:hover{
     color:#CCC;
 }
+
+.mini-title {
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+
+}
+
 .capchat-img {
     height: 100px;
     width: 100px;

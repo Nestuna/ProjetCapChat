@@ -21,8 +21,10 @@ class Token {
     }
 
     verifyToken = (token) => {
-        const decoded = jwt.verify(token, this.publicKey, {algorithms: ['RS256']})
-        return decoded
+        const decodedUserId = jwt.verify(token, this.publicKey, {algorithms: ['RS256']})
+        console.log(`User ${decodedUserId} with token`);
+        return decodedUserId
+
     }
 }
 

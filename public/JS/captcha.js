@@ -55,13 +55,4 @@ export default class Captcha {
             }, 1000)
         }
     }
-
-    getTokenAndUserId = () => {
-        const token = window.localStorage.getItem('token')
-        if (token) {
-            const adminLink = document.getElementById('admin_link')
-            adminLink.href += `?token=${token}`
-        }
-
-    }
 }
