@@ -54,6 +54,25 @@ class Model {
         })
     }
 
+    getTheme = async (themeId) => {
+        return new Promise((resolve, reject) => {
+
+        })
+    }
+
+    getUserThemeList = async (userId) => {
+        return new Promise((resolve, reject) => {
+            const sql = `SELECT * from theme WHERE user_id=${userId}`
+            console.log(sql)
+            this.db.query(sql, (error, rows) => {
+                if (error || !rows) reject(error)
+                else {
+                    resolve(rows)
+                }
+            })
+        })
+    }
+
     addTheme = async (themeName, userId) => {
         return new Promise((resolve, reject) => {
             const sql = `INSERT INTO theme (name, user_id) VALUES("${themeName}", ${userId})`
@@ -66,5 +85,6 @@ class Model {
             })
         })
     }
+
 }
 module.exports = new Model()

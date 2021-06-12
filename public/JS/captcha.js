@@ -1,3 +1,4 @@
+
 export default class Captcha {
 
     constructor(attempts) {
@@ -6,13 +7,23 @@ export default class Captcha {
         this.countDownText = document.querySelector('p#countdown_text')
         this.countDown = 30
         this.attempts = attempts
+        this.token = window.localStorage.getItem('token')
+        this.themeId = window.localStorage.getItem('theme')
     }
 
     _init = () => {
         document.addEventListener('DOMContentLoaded', () => {
+            console.log(window.location.href)
+            if (!window.location.href.includes('themeId')) {
+                const prefix = window.location.href.includes('fail') ? '&' : '?'
+                window.location.href += (prefix + 'themeId=' + this.themeId)
+            }
             this.addEventForCaptchaImages()
             this.initCountDown()
-            this.getTokenAndUserId()
+            if (this.token) {
+                const adminLink = document.getElementById('admin_link')
+                adminLink.href = `admin?token=${this.token}`
+            }
           });
     }
 

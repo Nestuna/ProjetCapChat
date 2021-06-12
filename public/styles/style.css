@@ -10,6 +10,22 @@
 #container p, a , h1, h2, h3, label{
     color: #EEE;
 }
+#container ul {
+    text-align: left;
+    list-style-type: none ;
+    font-size: 1.2em;
+    color: #CCC;
+
+}
+
+#container ul li:hover {
+    cursor: pointer;
+    color: #FFF;
+}
+#container ul li.selected-theme {
+    text-decoration: underline;
+    color: #FFF;
+}
 #container a:hover{
     color:#CCC;
 }

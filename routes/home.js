@@ -9,7 +9,8 @@ router.get('/', (req, res) => {
     if (req.query['attempts']) {
         attempts = req.query['attempts']
     }
-    const {neutralImagesPaths, singularImagePath, clue } = captcha.getImagesAndClue()
+    const themeId = req.query['themeId']
+    const {neutralImagesPaths, singularImagePath, clue } = captcha.getImagesAndClue(themeId)
     const data = {
         neutralImagesPaths: neutralImagesPaths,
         singularImagePath: singularImagePath,
@@ -22,10 +23,11 @@ router.get('/', (req, res) => {
 
 router.get('/fail', (req, res) => {
     let attempts = 0
-    if (req.query['attempts']) {
+    if (req.query['attempts'])
         attempts = req.query['attempts']
-    }
-    const {neutralImagesPaths, singularImagePath, clue } = captcha.getImagesAndClue()
+
+    const themeId = req.query['themeId']
+    const {neutralImagesPaths, singularImagePath, clue } = captcha.getImagesAndClue(themeId)
     const data = {
         neutralImagesPaths: neutralImagesPaths,
         singularImagePath: singularImagePath,

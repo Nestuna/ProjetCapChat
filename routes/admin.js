@@ -23,7 +23,6 @@ router.use((req, res, next) => {
     } else if (req.path = '/manage') {
         userToken = req.query['token']
     }
-    console.log(userToken);
     const tokenOK = userToken ? tokenator.verifyToken(userToken): false
     if (tokenOK) {
         req.userId = tokenOK
@@ -35,19 +34,21 @@ router.use((req, res, next) => {
             req.token = userToken
             next()
         } else {
-            res.status(403).render('login');
+            res.status(401).render('login');
         }
 
     }
 })
 
 router.get('/', (req, res) => {
-    res.render('login')
+    if (req.token)
+        res.render('admin', {userId: req.userId, token: req.token})
+    else
+        res.render('login')
 })
 
 
 router.get('/manage' , (req, res) => {
-    console.log('Token : ' , req.token);
     res.render('admin', {userId: req.userId, token: req.token}, (err,html) => {
         res.send(html)
     })
